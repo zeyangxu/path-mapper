@@ -1,5 +1,5 @@
-import { mapConfigToFormPath } from "./index";
-import mapRules from "./rules";
+import { mapConfigToFormPath } from "./path";
+import mapRules from "../common/rules";
 
 describe("mapConfigToFormPath", () => {
   const activityInfo = {

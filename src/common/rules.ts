@@ -1,5 +1,4 @@
 import { IMapRule } from "./types";
-import { regexStrToRegex } from "./utils";
 
 const mapRules: IMapRule[] = [
   {
@@ -24,7 +23,5 @@ const mapRules: IMapRule[] = [
     result: "tabInfo.$2.subTabInfoList.$3.activity_value_calculators.$4.factor"
   }
 ];
-
-// console.log(regexStrToRegex(mapRules[0].pattern));
 
 export default mapRules;

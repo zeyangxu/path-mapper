@@ -1,5 +1,5 @@
 import { regexStrToRegex } from "./utils";
-import mapRules from "./rules";
+import mapRules from "../common/rules";
 
 describe("utils", () => {
   describe("regexStrToRegex", () => {

@@ -1,4 +1,4 @@
-import { IMapRule } from "./types";
+import { IMapRule } from "../common/types";
 
 const replaceNthGroup = (str: string, locationList: string[]) => {
   let nth = 0;

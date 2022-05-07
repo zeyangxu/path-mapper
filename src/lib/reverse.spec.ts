@@ -1,4 +1,4 @@
-import mapRules from "./rules";
+import mapRules from "../common/rules";
 import { reverseRule } from "./reverse";
 
 describe("reverseRule", () => {
