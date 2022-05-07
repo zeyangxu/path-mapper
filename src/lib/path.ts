@@ -66,8 +66,6 @@ export const mapConfigToFormPath = (
         const execArray = pattern.exec(tcase.path);
         if (!execArray) return null;
 
-        console.log(execArray);
-
         const replaceRes = tcase.path.replace(pattern, rule.result);
 
         const extendedReplaceRes = replaceExtendedVariable(

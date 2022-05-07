@@ -1,5 +1,10 @@
 import { IMapRule } from "./types";
 
+/**
+ * 路径映射DSL
+ * pattern：类似regex，使用{name}占位需要外部信息决定的字段，使用(\\d)标识 index
+ * result：映射的结果，使用 $n 表示pattern里面的 capturing group序号
+ * */
 const mapRules: IMapRule[] = [
   {
     pattern:
