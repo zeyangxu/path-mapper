@@ -56,26 +56,28 @@ export const mapConfigToFormPath = (
   testCase: ITestCase[],
   activityInfo: any
 ) => {
-  return mapRules
-    .map((rule) => {
-      return testCase.map((tcase) => {
-        const replaceRes = tcase.path.replace(rule.pattern, rule.result);
+  return testCase
+    .map((tcase) => {
+      return mapRules.map((rule) => {
         const execArray = rule.pattern.exec(tcase.path);
+        if (!execArray) return null;
+
+        const replaceRes = tcase.path.replace(rule.pattern, rule.result);
 
         const extendedReplaceRes = replaceExtendedVariable(
           execArray,
           replaceRes,
           activityInfo
         );
+
         if (execArray && replaceRes) {
           return {
             ...tcase,
             path: extendedReplaceRes
             // path: rule.result(res, activityInfo)
           };
-        } else {
-          return null;
         }
+        return null;
       });
     })
     .flat()
