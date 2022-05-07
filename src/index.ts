@@ -2,6 +2,7 @@ import "./styles.css";
 import get from "lodash/get";
 import isEmpty from "lodash/isEmpty";
 import { IMapRule, ITestCase } from "./types";
+import { regexStrToRegex } from "./utils";
 
 enum ConditionKey {
   SINGLE = "singleConditionInfo",
@@ -21,6 +22,7 @@ const TaskTypeMap = {
   [OpenActivityTaskType.SingleTaskMultiPhase]: ConditionKey.MULTI_STAGE
 };
 
+/** 对于一些需要额外信息才能确定的字段进行适配 */
 const replaceExtendedVariable = (
   regexRes: RegExpExecArray | null,
   result: string,
@@ -39,11 +41,13 @@ const replaceExtendedVariable = (
     regexRes[0].replace(".condition_value", ".condition_type")
   );
 
-  const mapping: Record<string, string> = {
+  // 扩展字段映射
+  const mapping: Record<string, ConditionKey | string> = {
     taskTypeName: TaskTypeMap[taskType],
     conditionType: conditionType
   };
 
+  // 替换扩展字段
   let newResult = result;
   Object.keys(mapping).forEach((key) => {
     newResult = newResult.replace(`{${key}}`, mapping[key]);
@@ -59,10 +63,13 @@ export const mapConfigToFormPath = (
   return testCase
     .map((tcase) => {
       return mapRules.map((rule) => {
-        const execArray = rule.pattern.exec(tcase.path);
+        const pattern = regexStrToRegex(rule.pattern);
+        const execArray = pattern.exec(tcase.path);
         if (!execArray) return null;
 
-        const replaceRes = tcase.path.replace(rule.pattern, rule.result);
+        console.log(execArray);
+
+        const replaceRes = tcase.path.replace(pattern, rule.result);
 
         const extendedReplaceRes = replaceExtendedVariable(
           execArray,

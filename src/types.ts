@@ -1,5 +1,5 @@
 export interface IMapRule {
-  pattern: RegExp;
+  pattern: string;
   result: string;
 }
 
